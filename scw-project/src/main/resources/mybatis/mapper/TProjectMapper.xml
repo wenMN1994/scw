@@ -120,7 +120,7 @@
       #{memberid,jdbcType=INTEGER}, #{createdate,jdbcType=CHAR}, #{follower,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.dragon.scw.project.bean.TProject">
+  <insert id="insertSelective" parameterType="com.dragon.scw.project.bean.TProject" useGeneratedKeys="true" keyProperty="id">
     insert into t_project
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

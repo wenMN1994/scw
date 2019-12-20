@@ -31,7 +31,7 @@ public class ProjectRedisStorageVo extends BaseVo {
 	@ApiModelProperty("项目简介")
     private String remark;//项目简介 
 	@ApiModelProperty("筹资金额")
-    private Integer money;//筹资金额 
+    private Long money;//筹资金额 
 	@ApiModelProperty("筹资天数")
     private Integer day;//筹资天数 
 	@ApiModelProperty("项目头部图片")

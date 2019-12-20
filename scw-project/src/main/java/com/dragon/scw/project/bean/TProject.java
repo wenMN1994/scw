@@ -15,17 +15,17 @@ public class TProject {
 
     private String deploydate;
 
-    private Long supportmoney;
+    private Long supportmoney = 0L;
 
-    private Integer supporter;
+    private Integer supporter = 0;
 
-    private Integer completion;
+    private Integer completion = 0;
 
     private Integer memberid;
 
     private String createdate;
 
-    private Integer follower;
+    private Integer follower = 100;
 
     public Integer getId() {
         return id;

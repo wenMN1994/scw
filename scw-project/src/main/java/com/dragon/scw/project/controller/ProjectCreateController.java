@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.dragon.scw.enums.ProjectStatusEnume;
 import com.dragon.scw.project.bean.TReturn;
 import com.dragon.scw.project.component.OssTemplate;
 import com.dragon.scw.project.constant.ProjectConstant;
+import com.dragon.scw.project.service.ProjectService;
 import com.dragon.scw.project.vo.req.BaseVo;
 import com.dragon.scw.project.vo.req.ProjectBaseInfoVo;
 import com.dragon.scw.project.vo.req.ProjectRedisStorageVo;
@@ -28,6 +30,8 @@ import com.dragon.scw.project.vo.req.ProjectReturnVo;
 import com.dragon.scw.vo.resp.AppResponse;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +46,9 @@ public class ProjectCreateController {
 	
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
+	
+	@Autowired
+	ProjectService projectService;
 	
 	@ApiOperation(value = "项目初始创建")
 	@PostMapping("/init")
@@ -211,10 +218,48 @@ public class ProjectCreateController {
 		return AppResponse.ok("ok");
 	}
 	
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="accessToken",value="用户令牌",required=true),
+		@ApiImplicitParam(name="projectToken",value="项目标识",required=true),
+		@ApiImplicitParam(name="ops",value="用户操作类型   0-保存草稿   1-提交审核",required=true)
+		})
 	@ApiOperation(value = "项目提交审核申请")
 	@PostMapping("/submit")
-	public AppResponse<Object> submit() {
-		return AppResponse.ok("ok");
+	public AppResponse<Object> submit(String accessToken,String projectToken,String ops) {
+		try {
+			//验证用户是否登录
+			if(StringUtils.isEmpty(accessToken)) {
+				AppResponse<Object> resp = AppResponse.fail(null);
+				resp.setMsg("请求必须提供AccessToken值");
+				return resp;
+			}
+			
+			String memberId = stringRedisTemplate.opsForValue().get(accessToken);
+			
+			if(StringUtils.isEmpty(memberId)) {
+				AppResponse<Object> resp = AppResponse.fail(null);
+				resp.setMsg("请先登录系统，再发布项目！");
+				return resp;
+			}
+			
+			if("0".equals(ops)) {//保存草稿
+				projectService.saveProject(accessToken,projectToken,ProjectStatusEnume.DRAFT.getCode());
+				return AppResponse.ok("ok");
+			} else if("1".equals(ops)) {//保存提交审核
+				projectService.saveProject(accessToken,projectToken,ProjectStatusEnume.SUBMIT_AUTH.getCode());
+				return AppResponse.ok("ok");
+			} else {
+				log.error("请求方式不支持");
+				AppResponse<String> resp = new AppResponse<String>();
+				resp.setMsg("请求方式不支持");
+				return AppResponse.fail(resp);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("项目提交审核失败-{}", e.getMessage());
+			return AppResponse.fail(null);
+		}
 	}
 	
 }
