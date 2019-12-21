@@ -4,7 +4,7 @@ spring:
   application:
     name: SCW-WEBUI
   redis:
-    host: 193.168.163.129
+    host: 192.168.163.129
     port: 6379
   session:
     store-type: redis
