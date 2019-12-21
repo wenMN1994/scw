@@ -6,9 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
-<link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/static/css/font-awesome.min.css}">
-<link rel="stylesheet" href="css/carousel.css" th:href="@{/static/css/carousel.css}">
+<div th:include="~{include/include::cssStyle}"></div>
 <style>
 h3 {
 	font-weight: bold;
@@ -927,33 +925,12 @@ h3.break>a {
 		</div>
 
 		<!-- FOOTER -->
-		<div class="container">
-			<div class="row clearfix">
-				<div class="col-md-12 column">
-					<div id="footer">
-						<div class="footerNav">
-							<a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">联系我们</a>
-						</div>
-						<div class="copyRight">Copyright ?2017-2017atguigu.com 版权所有
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
+		<div th:include="~{include/include::#footer}"></div>
 
 	</div>
 	<!-- /.container -->
-
-
-	<script src="jquery/jquery-2.1.1.min.js" th:src="@{/static/jquery/jquery-2.1.1.min.js}"></script>
-	<script src="bootstrap/js/bootstrap.min.js" th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
-	<script src="script/docs.min.js" th:src="@{/static/script/docs.min.js}"></script>
-	<script src="script/back-to-top.js" th:src="@{/static/script/back-to-top.js}"></script>
+	
+	<div th:include="~{include/include::#jsStyle}"></div>
 	<script>
     $(".thumbnail img").css("cursor", "pointer");
     $(".thumbnail img").click(function(){
