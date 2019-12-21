@@ -1,4 +1,4 @@
-package com.dragon.scw.controller;
+package com.dragon.scw.webui.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
