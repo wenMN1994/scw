@@ -10,9 +10,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dragon.scw.user.bean.TMember;
 import com.dragon.scw.user.component.SmsTemplate;
 import com.dragon.scw.user.service.TMemberService;
 import com.dragon.scw.user.vo.req.UserRegistVo;
@@ -46,7 +46,7 @@ public class UserLoginRegistController {
 			@ApiImplicitParam(value="用户密码",name="password")
 	})
 	@PostMapping("/login")
-	public AppResponse<UserRespVo> login(String loginacct,String password){
+	public AppResponse<UserRespVo> login(@RequestParam("loginacct") String loginacct, @RequestParam("password") String password){
 		try {
 			UserRespVo vo = memberService.getUserByLogin(loginacct, password);
 			log.debug("登陆成功-{}",loginacct);

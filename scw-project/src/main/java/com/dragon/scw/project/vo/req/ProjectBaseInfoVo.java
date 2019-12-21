@@ -17,6 +17,11 @@ import lombok.Data;
 @Data
 public class ProjectBaseInfoVo extends BaseVo {
 	
+	/**
+	 *  serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@ApiModelProperty("项目之前的临时token")
 	private String projectToken;// 项目的临时token
 	 

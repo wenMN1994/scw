@@ -13,6 +13,11 @@ import lombok.Data;
 @Data
 public class ProjectReturnVo extends BaseVo {
 
+	/**
+	 *  serialVersionUID
+	 */
+	private static final long serialVersionUID = 3606021650966946437L;
+
 	@ApiModelProperty("项目的临时token")
 	private String projectToken;// 项目的临时token
 	 

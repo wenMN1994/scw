@@ -18,6 +18,11 @@ import lombok.Data;
 @Data
 public class ProjectRedisStorageVo extends BaseVo {
 
+	/**
+	 *  serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@ApiModelProperty("项目的临时token")
 	private String projectToken;//项目的临时token
 	

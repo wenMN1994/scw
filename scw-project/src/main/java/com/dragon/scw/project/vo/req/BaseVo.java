@@ -1,5 +1,7 @@
 package com.dragon.scw.project.vo.req;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -10,7 +12,12 @@ import lombok.Data;
  * @date 2019年12月18日
  */
 @Data
-public class BaseVo {
+public class BaseVo implements Serializable {
+	
+	/**
+	 *  serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String accessToken;
 }
