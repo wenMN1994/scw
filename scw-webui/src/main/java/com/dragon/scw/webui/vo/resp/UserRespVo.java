@@ -16,6 +16,11 @@ import lombok.Data;
 @Data
 @ApiModel
 public class UserRespVo implements Serializable{
+	/**
+	 *  serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@ApiModelProperty("访问令牌，请妥善保管，以后每次请求都要带上")
 	private String accessToken;//访问令牌
 	private String loginacct; //存储手机号

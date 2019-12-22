@@ -289,44 +289,17 @@ h3.break>a {
 
 		<!-- Three columns of text below the carousel -->
 		<div class="row">
-			<div class="col-lg-4">
-				<img class="img-circle" src="img/p1.jpg" th:src="@{/static/img/p1.jpg}"
+			<div class="col-lg-4" th:each="projectVo:${projectVoList}">
+				<img class="img-circle" src="static/img/p1.jpg" th:src="${projectVo.headerImage}"
 					alt="Generic placeholder image"
 					style="width: 140px; height: 140px;">
-				<h2>智能高清监控机器人</h2>
-				<p>可爱的造型，摄像安防远程互联的全能设计，让你随时随地守护您的家人，陪伴你的生活。</p>
+				<h2 th:text="${projectVo.name}">智能高清监控机器人</h2>
+				<p th:text="${projectVo.remark}">可爱的造型，摄像安防远程互联的全能设计，让你随时随地守护您的家人，陪伴你的生活。</p>
 				<p>
 					<a class="btn btn-default" href="project.html" role="button">项目详情
 						&raquo;</a>
 				</p>
 			</div>
-			<!-- /.col-lg-4 -->
-			<div class="col-lg-4">
-				<img class="img-circle" src="img/p2.jpg" th:src="@{/static/img/p2.jpg}"
-					alt="Generic placeholder image"
-					style="width: 140px; height: 140px;">
-				<h2>NEOKA智能手环</h2>
-				<p>要运动更要安全，这款、名为“蝶舞”的NEOKA-V9100智能运动手环为“安全运动而生”。</p>
-				<p>
-					<a class="btn btn-default" href="project.html" role="button">项目详情
-						&raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-			<div class="col-lg-4">
-				<img class="img-circle" src="img/p3.png" th:src="@{/static/img/p3.png}"
-					alt="Generic placeholder image"
-					style="width: 140px; height: 140px;">
-				<h2>驱蚊扣</h2>
-				<p>
-					随处使用的驱蚊纽扣，<br>解决夏季蚊虫问题。
-				</p>
-				<p>
-					<a class="btn btn-default" href="project.html" role="button">项目详情
-						&raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
 		</div>
 		<!-- /.row -->
 
