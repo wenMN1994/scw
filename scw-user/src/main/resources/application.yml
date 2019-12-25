@@ -30,7 +30,7 @@ server:
 logging:
   file: D:\logs\scw-user.log
   level:
-    com.dragon: debug
+    com.dragon.scw: debug
     
 swagger2: 
   enable: true

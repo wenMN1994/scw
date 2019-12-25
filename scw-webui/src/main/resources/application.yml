@@ -13,6 +13,11 @@ spring:
     suffix: .html
     cache: false #开发的时候禁用缓存
 
+logging:
+  file: D:\logs\scw-webui.log
+  level:
+    com.dragon.scw: debug
+
 feign:
   hystrix:
     enabled: true
