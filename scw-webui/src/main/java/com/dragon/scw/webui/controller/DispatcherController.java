@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSON;
 import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.TMemberServiceFeign;
 import com.dragon.scw.webui.service.TProjectServiceFeign;
@@ -31,7 +29,7 @@ public class DispatcherController {
 	@Autowired
 	RedisTemplate redisTemplate;
 	
-	@RequestMapping("/index")
+	@RequestMapping(value= {"/","/index"})
 	public String index(Model mode) {
 		List<ProjectVo> data = (List<ProjectVo>) redisTemplate.opsForValue().get("projectInfo");
 		
@@ -75,4 +73,5 @@ public class DispatcherController {
 		}
 		return "redirect:/index";
 	}
+	
 }

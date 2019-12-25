@@ -296,7 +296,7 @@ h3.break>a {
 				<h2 th:text="${projectVo.name}">智能高清监控机器人</h2>
 				<p th:text="${projectVo.remark}">可爱的造型，摄像安防远程互联的全能设计，让你随时随地守护您的家人，陪伴你的生活。</p>
 				<p>
-					<a class="btn btn-default" href="project.html" role="button">项目详情
+					<a class="btn btn-default" href="project.html" th:href="@{/project/infoPage/}+${projectVo.id}" role="button">项目详情
 						&raquo;</a>
 				</p>
 			</div>

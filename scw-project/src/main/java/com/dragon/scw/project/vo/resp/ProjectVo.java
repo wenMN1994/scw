@@ -16,16 +16,12 @@ public class ProjectVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer memberid;// 会员id
+	private Integer id;// 项目id
 	
-	//第二步：收集项目基本信息以及发起人信息（暂时不做）
-//	private List<Integer> typeids; // 项目的分类id
-//	private List<Integer> tagids; // 项目的标签id
+	private Integer memberid;// 会员id
 	
 	private String name;// 项目名称
 	private String remark;// 项目简介
-//	private Integer money;// 筹资金额
-//	private Integer day;// 筹资天数
 	
 	private String headerImage;// 项目头部图片
 	private List<String> detailsImage = new ArrayList<>();// 项目详情图片
