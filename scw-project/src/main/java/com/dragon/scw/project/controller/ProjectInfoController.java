@@ -17,6 +17,7 @@ import com.dragon.scw.project.bean.TTag;
 import com.dragon.scw.project.bean.TType;
 import com.dragon.scw.project.component.OssTemplate;
 import com.dragon.scw.project.service.ProjectInfoService;
+import com.dragon.scw.project.vo.resp.ProjectDetailVo;
 import com.dragon.scw.project.vo.resp.ProjectVo;
 import com.dragon.scw.vo.resp.AppResponse;
 
@@ -38,27 +39,27 @@ public class ProjectInfoController {
 
 	@ApiOperation("[+]获取项目信息详情")
 	@GetMapping("/details/info/{projectId}")
-	public AppResponse<ProjectVo> detailsInfo(@PathVariable("projectId") Integer projectId) {
+	public AppResponse<ProjectDetailVo> detailsInfo(@PathVariable("projectId") Integer projectId) {
 		TProject p = projectInfoService.getProjectInfo(projectId);
-		ProjectVo projectVo = new ProjectVo();
+		ProjectDetailVo projectDetailVo = new ProjectDetailVo();
 
 		// 1、查出这个项目的所有图片
 		List<TProjectImages> projectImages = projectInfoService.getProjectImages(p.getId());
 		for (TProjectImages tProjectImages : projectImages) {
 			if (tProjectImages.getImgtype() == 0) {
-				projectVo.setHeaderImage(tProjectImages.getImgurl());
+				projectDetailVo.setHeaderImage(tProjectImages.getImgurl());
 			} else {
-				List<String> detailsImage = projectVo.getDetailsImage();
+				List<String> detailsImage = projectDetailVo.getDetailsImage();
 				detailsImage.add(tProjectImages.getImgurl());
 			}
 		}
 
 		// 2、项目的所有支持档位；
 		List<TReturn> returns = projectInfoService.getProjectReturns(p.getId());
-		projectVo.setProjectReturns(returns);
+		projectDetailVo.setProjectReturns(returns);
 
-		BeanUtils.copyProperties(p, projectVo);
-		return AppResponse.ok(projectVo);
+		BeanUtils.copyProperties(p, projectDetailVo);
+		return AppResponse.ok(projectDetailVo);
 	}
 
 	@ApiOperation("[+]获取项目回报列表")

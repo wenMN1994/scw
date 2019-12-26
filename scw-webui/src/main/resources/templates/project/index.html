@@ -111,14 +111,10 @@
             <div class="row clearfix">
                 <div class="col-md-12 column">
                     <div class="jumbotron nofollow" style="    padding-top: 10px;">
-                        <h3>
-                            酷驰触控龙头，智享厨房黑科技
-                        </h3>
-                        <div style="float:left;width:70%;">
-                            智能时代，酷驰触控厨房龙头，让煮妇解放双手，触发更多烹饪灵感，让美味信手拈来。
-                        </div>
+                        <h3>[[${projectDetails.name}]]</h3>
+                        <div style="float:left;width:70%;">[[${projectDetails.remark}]]</div>
                         <div style="float:right;">
-                            <button type="button" class="btn btn-default"><i style="color:#f60" class="glyphicon glyphicon-heart"></i> 关注 111</button>
+                            <button type="button" class="btn btn-default"><i style="color:#f60" class="glyphicon glyphicon-heart"></i> 关注 [[${projectDetails.follower}]]</button>
                         </div>
                     </div>
                 </div>
@@ -130,9 +126,8 @@
                 <div class="col-md-12 column">
                     <div class="row clearfix">
                         <div class="col-md-8 column">
-                            <img alt="140x140" width="740" src="img/product_detail_head.jpg" />
-                            <img alt="140x140" width="740" src="img/product_detail_body.jpg" />
-                           
+                            <!-- <img alt="140x140" width="740" src="img/product_detail_head.jpg" th:src="${projectDetails.headerImage}" /> -->
+                            <img alt="140x140" width="740" src="img/product_detail_body.jpg" th:each="detailImage:${projectDetails.detailsImage}" th:src="${detailImage}"/>                      
                         </div>
                         <div class="col-md-4 column">
                             <div class="panel panel-default" style="border-radius: 0px;">
@@ -140,16 +135,14 @@
                                     <span class="label label-success"><i class="glyphicon glyphicon-tag"></i> 众筹中</span>
                                 </div>
                                 <div class="panel-body">
-                                    <h3 >
-                                        已筹资金：￥50000.00
-                                    </h3>
-                                    <p><span>目标金额 ： 1000.00</span><span style="float:right;">达成 ： 60%</span></p>
+                                    <h3 > 已筹资金：￥[[${projectDetails.supportmoney}]]</h3>
+                                    <p><span>目标金额 ： [[${projectDetails.money}]]</span><span style="float:right;">达成 ： 60%</span></p>
                                     <div class="progress" style="height:10px; margin-bottom: 5px;">
                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
                                     </div>
                                     <p>剩余 15 天</p>
                                     <div>
-                                     <p><span>已有629人支持该项目</p>
+                                     <p><span>已有[[${projectDetails.supporter}]]人支持该项目</p>
                                      <button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#myModal">立即支持</button>
                                     </div>
                                 </div>

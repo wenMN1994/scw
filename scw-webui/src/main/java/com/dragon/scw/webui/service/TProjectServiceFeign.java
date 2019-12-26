@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.exp.handler.TProjectServiceFeignExceptionHandler;
+import com.dragon.scw.webui.vo.resp.ProjectDetailVo;
 import com.dragon.scw.webui.vo.resp.ProjectVo;
 
 /**
@@ -21,4 +23,7 @@ public interface TProjectServiceFeign {
 
 	@GetMapping("/project/all")
 	public AppResponse<List<ProjectVo>> all();
+
+	@GetMapping("/project/details/info/{projectId}")
+	public AppResponse<ProjectDetailVo> detailsInfo(@PathVariable("projectId") Integer projectId);
 }
