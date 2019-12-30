@@ -132,7 +132,12 @@
                         <div class="col-md-4 column">
                             <div class="panel panel-default" style="border-radius: 0px;">
                                 <div class="panel-heading" style="background-color: #fff;border-color: #fff;">
-                                    <span class="label label-success"><i class="glyphicon glyphicon-tag"></i> 众筹中</span>
+                                    <span class="label label-success">
+                                    	<i class="glyphicon glyphicon-tag"></i> 
+                                    	<span th:text="${projectDetails.status} == 0? '草稿': ''">众筹中</span>
+										<span th:text="${projectDetails.status} == 1? '提交审核申请': ''">众筹中</span>
+										<span th:text="${projectDetails.status} == 5? '众筹中': ''">众筹中</span>
+                                    </span>
                                 </div>
                                 <div class="panel-body">
                                     <h3 > 已筹资金：￥[[${projectDetails.supportmoney}]]</h3>
@@ -173,35 +178,30 @@
                         </div>
                     </div>
                 </div>
-					<div class="panel panel-default" style="border-radius: 0px;">
+					<div class="panel panel-default" style="border-radius: 0px;" th:each="projectReturn:${projectDetails.projectReturns}" >
 						<div class="panel-heading">
 							<h3 >
-								￥1.00 <span style="float:right;font-size:12px;">无限额，447位支持者</span>
+								￥[[${projectReturn.supportmoney}]] 
+								<span style="float:right;font-size:12px;">
+									<label th:if="${projectReturn.purchase > 0}" th:text="'限额'+${projectReturn.purchase}+'份'">限额100份</label>
+									<label th:if="${projectReturn.purchase <= 0}" th:text="无限额"> </label>，447位支持者
+								</span>
 							</h3>
 						</div>
 						<div class="panel-body">
-                            <p>配送费用：包邮</p>
-                            <p>预计发放时间：项目筹款成功后的50天内</p>
-                            <button type="button" class="btn  btn-warning btn-lg" onclick="window.location.href='pay-step-1.html'">支持</button>
+                            <p>配送费用：
+                            	<label th:if="${projectReturn.freight>0}" th:text="'不包邮，邮费：'+${projectReturn.freight}">包邮</label>
+								<label th:if="${projectReturn.freight<=0}" th:text="包邮">包邮</label> 
+                            </p>
+                            <p>预计发放时间：项目筹款成功后的50天内
+                            	<label th:text=${projectReturn.rtndate}>50</label>
+                            </p>
+                            <button type="button" class="btn suportReturnBtn btn-warning btn-lg" th:href="@{/project/return/confirm(projectId=${projectDetails.id},retId=${projectReturn.id})}" >支持</button>
                             <br><br>
-                            <p>感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>
+                            <p th:text="${projectReturn.content}">感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>
 						</div>
 					</div>
-                    
-					<div class="panel panel-default" style="border-radius: 0px;">
-						<div class="panel-heading">
-							<h3 >
-								￥149.00 <span style="float:right;font-size:12px;">限额2000位，剩余1966位</span>
-							</h3>
-						</div>
-						<div class="panel-body">
-                            <p>配送费用：包邮</p>
-                            <p>预计发放时间：项目筹款成功后的50天内</p>
-                            <button type="button" class="btn  btn-warning btn-lg" onclick="window.location.href='pay-step-1.html'">支持</button>
-                            <br><br>
-                            <p>感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>
-						</div>
-					</div>
+
 					<div class=" panel panel-default" style="border-radius: 0px;">
 						<div class="panel-heading">
 							<h3 >
@@ -335,6 +335,11 @@
     $(".prjtip img").click(function(){
         window.location.href = 'project.html';
     });
+
+    $(".suportReturnBtn").click(function(){
+    	window.location.href= $(this).attr('href');
+    });
+
 	</script>
   </body>
 </html>
