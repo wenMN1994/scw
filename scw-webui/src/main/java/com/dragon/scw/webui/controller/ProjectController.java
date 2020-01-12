@@ -1,10 +1,14 @@
 package com.dragon.scw.webui.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.TProjectServiceFeign;
@@ -35,5 +39,13 @@ public class ProjectController {
 		log.debug("商品详情信息={}",data);
 		return "project/index";
 	
+	}
+	
+	// 支持购买某个档位；去回报确认页
+	@GetMapping("/return/confirm")
+	public String toReturnConfirmPage(@RequestParam("projectId") Integer projectId,
+	@RequestParam("retId") Integer retId, Model model, HttpSession session) { 
+
+		return "project/pay-step-1";
 	}
 }
