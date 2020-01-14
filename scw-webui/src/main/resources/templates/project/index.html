@@ -144,7 +144,7 @@
 									<p>剩余 15 天</p>
 									<div>
 										<p>
-											<span>已有[[${projectDetails.supporter}]]人支持该项目
+											<span>已有[[${projectDetails.supporter}]]人支持该项目 
 										</p>
 										<button type="button"
 											class="btn  btn-warning btn-lg btn-block" data-toggle="modal"
@@ -201,8 +201,7 @@
 									<button type="button"
 										class="btn suportReturnBtn btn-warning btn-lg"
 										th:href="@{/project/return/confirm(projectId=${projectDetails.id},retId=${projectReturn.id})}">支持</button>
-									<br>
-									<br>
+									<br> <br>
 									<p th:text="${projectReturn.content}">感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>
 								</div>
 							</div>
@@ -246,26 +245,8 @@
 				</div>
 			</div>
 		</div>
-
-
-		<div class="container" style="margin-top: 20px;">
-			<div class="row clearfix">
-				<div class="col-md-12 column">
-					<div id="footer">
-						<div class="footerNav">
-							<a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a
-								rel="nofollow" href="http://www.atguigu.com">联系我们</a>
-						</div>
-						<div class="copyRight">Copyright ?2010-2014atguigu.com 版权所有
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
+		
+		<div th:include="~{include/include::#footer}"></div>
 
 	</div>
 	<!-- /container -->
@@ -321,7 +302,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<div th:include="~{include/include::#jsStyle}"></div>
