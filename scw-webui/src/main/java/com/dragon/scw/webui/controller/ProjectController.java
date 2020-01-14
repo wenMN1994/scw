@@ -67,6 +67,10 @@ public class ProjectController {
 	@GetMapping("/pay/confirm")
 	public String payConfirmPage(HttpSession session, @RequestParam("num") Integer num, Model model) {
 		
+		// 1、确认当前用户是否已经登录
+		
+		// 2、如果没有登录就去登录页
+		
 		return "project/pay-step-2";
 	}
 }
