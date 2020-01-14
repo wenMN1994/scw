@@ -55,10 +55,24 @@
 	border: 1px #f60 solid;
 }
 
-#typeList  :not (:first-child ) {
-	margin-top: 20px;
-}
+#typeList
+  
+:not
+ 
+(
+:first-child
+ 
+)
+{
+margin-top
+:
+ 
+20
+px
+;
 
+
+}
 .label-txt {
 	margin: 10px 10px;
 	border: 1px solid #ddd;
@@ -272,10 +286,17 @@
 	<!-- /container -->
 	<div th:include="~{include/include::#jsStyle}"></div>
 	<script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+		$('#myTab a').click(function(e) {
+			e.preventDefault()
+			$(this).tab('show')
+		})
+
+		$("#submitReturnInfoBtn").click(
+			function() {
+				location.href = $(this).attr("href") + "?num="
+						+ $("input[type='number']").val();
+			}	
+		);
 	</script>
 </body>
 </html>

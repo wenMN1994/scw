@@ -63,4 +63,10 @@ public class ProjectController {
 
 		return "project/pay-step-1";
 	}
+	
+	@GetMapping("/pay/confirm")
+	public String payConfirmPage(HttpSession session, @RequestParam("num") Integer num, Model model) {
+		
+		return "project/pay-step-2";
+	}
 }
