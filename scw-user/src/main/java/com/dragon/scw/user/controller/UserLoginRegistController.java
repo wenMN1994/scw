@@ -8,11 +8,14 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dragon.scw.user.bean.TMember;
 import com.dragon.scw.user.component.SmsTemplate;
 import com.dragon.scw.user.service.TMemberService;
 import com.dragon.scw.user.vo.req.UserRegistVo;
@@ -144,6 +147,12 @@ public class UserLoginRegistController {
 		return AppResponse.ok("ok");
 	} 
 	
-	
+	@ApiOperation(value="根据会员ID查询会员信息")
+	@GetMapping("/info/{id}")
+	public AppResponse<TMember> getMemberInfo(@PathVariable("id")Integer memberid) {
+		TMember vo = memberService.geUserById(memberid);
+		log.debug("根据会员ID查询会员信息="+vo);
+		return AppResponse.ok(vo);
+	} 
 
 }

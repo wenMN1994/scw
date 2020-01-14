@@ -79,4 +79,10 @@ public class TMemberServiceImpl implements TMemberService {
 		stringRedisTemplate.opsForValue().set(accessToken, member.getId().toString());
 		return vo;
 	}
+
+	@Override
+	public TMember geUserById(Integer memberid) {
+		
+		return memberMapper.selectByPrimaryKey(memberid);
+	}
 }

@@ -10,6 +10,7 @@ import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.exp.handler.TProjectServiceFeignExceptionHandler;
 import com.dragon.scw.webui.vo.resp.ProjectDetailVo;
 import com.dragon.scw.webui.vo.resp.ProjectVo;
+import com.dragon.scw.webui.vo.resp.ReturnPayConfirmVo;
 
 /**
  * 
@@ -26,4 +27,7 @@ public interface TProjectServiceFeign {
 
 	@GetMapping("/project/details/info/{projectId}")
 	public AppResponse<ProjectDetailVo> detailsInfo(@PathVariable("projectId") Integer projectId);
+
+	@GetMapping("/project/support/returnConfirm/{projectId}/{retId}")
+	public AppResponse<ReturnPayConfirmVo> confirmProjectReturnPayInfo(@PathVariable("projectId") Integer projectId, @PathVariable("retId") Integer retId);
 }

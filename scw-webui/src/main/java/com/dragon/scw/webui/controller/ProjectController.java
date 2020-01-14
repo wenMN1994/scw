@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.TProjectServiceFeign;
 import com.dragon.scw.webui.vo.resp.ProjectDetailVo;
+import com.dragon.scw.webui.vo.resp.ReturnPayConfirmVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,10 +42,24 @@ public class ProjectController {
 	
 	}
 	
-	// 支持购买某个档位；去回报确认页
+	/**
+	 * 
+	 * <p>Title: toReturnConfirmPage</p>  
+	 * <p>Description: 支持购买某个档位；去回报确认页</p>  
+	 * @param projectId
+	 * @param retId
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/return/confirm")
 	public String toReturnConfirmPage(@RequestParam("projectId") Integer projectId,
 	@RequestParam("retId") Integer retId, Model model, HttpSession session) { 
+		
+		AppResponse<ReturnPayConfirmVo> vo = projectServiceFeign.confirmProjectReturnPayInfo(projectId, retId);
+		ReturnPayConfirmVo data = vo.getData();
+		model.addAttribute("confirmReturn", data); 
+		session.setAttribute("returnConfirm", data);//结算页也需要这个数据,采用session共享数据
 
 		return "project/pay-step-1";
 	}

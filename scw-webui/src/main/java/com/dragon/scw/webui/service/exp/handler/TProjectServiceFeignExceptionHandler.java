@@ -8,6 +8,7 @@ import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.TProjectServiceFeign;
 import com.dragon.scw.webui.vo.resp.ProjectDetailVo;
 import com.dragon.scw.webui.vo.resp.ProjectVo;
+import com.dragon.scw.webui.vo.resp.ReturnPayConfirmVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +36,14 @@ public class TProjectServiceFeignExceptionHandler implements TProjectServiceFeig
 		AppResponse<ProjectDetailVo> resp = AppResponse.fail(null);
 		resp.setMsg("调用远程服务【查询项目详情信息】失败");
 		log.error("调用远程服务【查询项目详情信息】失败");
+		return resp;
+	}
+
+	@Override
+	public AppResponse<ReturnPayConfirmVo> confirmProjectReturnPayInfo(Integer projectId, Integer retId) {
+		AppResponse<ReturnPayConfirmVo> resp = AppResponse.fail(null);
+		resp.setMsg("调用远程服务【查询项目回报信息】失败");
+		log.error("调用远程服务【查询项目回报信息】失败");
 		return resp;
 	}
 	
