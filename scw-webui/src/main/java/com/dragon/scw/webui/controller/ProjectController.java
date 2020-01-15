@@ -1,5 +1,8 @@
 package com.dragon.scw.webui.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dragon.scw.vo.resp.AppResponse;
+import com.dragon.scw.webui.service.TMemberServiceFeign;
 import com.dragon.scw.webui.service.TProjectServiceFeign;
 import com.dragon.scw.webui.vo.resp.ProjectDetailVo;
 import com.dragon.scw.webui.vo.resp.ReturnPayConfirmVo;
+import com.dragon.scw.webui.vo.resp.TMemberAddress;
 import com.dragon.scw.webui.vo.resp.UserRespVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +38,9 @@ public class ProjectController {
 
 	@Autowired
 	TProjectServiceFeign projectServiceFeign; 
+	
+	@Autowired
+	TMemberServiceFeign userServiceFeign;
 	
 	@RequestMapping("/infoPage/{id}")
 	public String projectInfoPage(@PathVariable("id") Integer id, Model model) {
@@ -66,23 +74,30 @@ public class ProjectController {
 		return "project/pay-step-1";
 	}
 	
-	@GetMapping("/pay/confirm")
-	public String payConfirmPage(HttpSession session, @RequestParam("num") Integer num, Model model) {
+	@GetMapping("/pay/confirm/{num}")
+	public String payConfirmPage(HttpSession session, @PathVariable("num") Integer num, Model model) {
 		
 		// 1、确认当前用户是否已经登录
 		UserRespVo loginMember = (UserRespVo) session.getAttribute("loginMember");
 		if(loginMember == null) {
-			String  preUrl = (String) session.getAttribute("preUrl"); //登录功能判断去首页还是去之前页面
-			if(!StringUtils.isEmpty(preUrl)){
-			  return "redirect:"+preUrl;
-			}
-			// 用户未登录
-			model.addAttribute("msg", "您需要登录，才能继续操作");
-			session.setAttribute("preUrl", "/project/pay/confirm?num=" + num);
-			return "login";
+			session.setAttribute("preUrl", "/project/pay/confirm/"+num);
+			// 2、如果没有登录就去登录页
+			return "redirect:/login";
 		}
-		// 2、如果没有登录就去登录页
 		
+		ReturnPayConfirmVo vo = (ReturnPayConfirmVo) session.getAttribute("returnConfirm");
+		vo.setNum(num);
+		Integer totalPrice = vo.getPrice() * num + vo.getFreight();
+		vo.setTotalPrice(new BigDecimal(totalPrice.toString()));
+		// 每一步更新redis数据
+		session.setAttribute("returnConfirm", vo);
+		 
+		// 查询用户的收货地址
+		AppResponse<List<TMemberAddress>> addresses =
+		     userServiceFeign.addresses(loginMember.getAccessToken());
+		List<TMemberAddress> list = addresses.getData();
+		model.addAttribute("addresses", list);
 		return "project/pay-step-2";
+
 	}
 }

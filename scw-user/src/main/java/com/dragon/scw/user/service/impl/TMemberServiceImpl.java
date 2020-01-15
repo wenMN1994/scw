@@ -12,8 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dragon.scw.enums.UserExceptionEnum;
 import com.dragon.scw.user.bean.TMember;
+import com.dragon.scw.user.bean.TMemberAddress;
+import com.dragon.scw.user.bean.TMemberAddressExample;
 import com.dragon.scw.user.bean.TMemberExample;
 import com.dragon.scw.user.exception.UserException;
+import com.dragon.scw.user.mapper.TMemberAddressMapper;
 import com.dragon.scw.user.mapper.TMemberMapper;
 import com.dragon.scw.user.service.TMemberService;
 import com.dragon.scw.user.vo.req.UserRegistVo;
@@ -28,6 +31,8 @@ public class TMemberServiceImpl implements TMemberService {
 
 	@Autowired
 	TMemberMapper memberMapper;
+	
+	TMemberAddressMapper memberAddressMapper;
 	
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
@@ -84,5 +89,13 @@ public class TMemberServiceImpl implements TMemberService {
 	public TMember geUserById(Integer memberid) {
 		
 		return memberMapper.selectByPrimaryKey(memberid);
+	}
+
+	@Override
+	public List<TMemberAddress> getUserAddress(Integer memberId) {
+		TMemberAddressExample example = new TMemberAddressExample();
+		example.createCriteria().andMemberidEqualTo(memberId);
+		memberAddressMapper.selectByExample(example);
+		return memberAddressMapper.selectByExample(example);
 	}
 }

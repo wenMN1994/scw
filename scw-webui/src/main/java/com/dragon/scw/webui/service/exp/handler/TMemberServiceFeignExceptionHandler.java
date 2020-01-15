@@ -1,9 +1,12 @@
 package com.dragon.scw.webui.service.exp.handler;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.dragon.scw.vo.resp.AppResponse;
 import com.dragon.scw.webui.service.TMemberServiceFeign;
+import com.dragon.scw.webui.vo.resp.TMemberAddress;
 import com.dragon.scw.webui.vo.resp.UserRespVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,14 @@ public class TMemberServiceFeignExceptionHandler implements TMemberServiceFeign 
 		AppResponse<UserRespVo> resp = AppResponse.fail(null);
 		resp.setMsg("调用远程服务【登录】失败");
 		log.error("调用远程服务【登录】失败");
+		return resp;
+	}
+
+	@Override
+	public AppResponse<List<TMemberAddress>> addresses(String token) {
+		AppResponse<List<TMemberAddress>> resp = AppResponse.fail(null);
+		resp.setMsg("调用远程服务【查询会员地址信息】失败");
+		log.error("调用远程服务【查询会员地址信息】失败");
 		return resp;
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dragon.scw.vo.resp.AppResponse;
@@ -62,7 +63,15 @@ public class DispatcherController {
 		
 		session.setAttribute("loginMember", data);
 		
-		return "redirect:/index";
+		String preUrl = (String) session.getAttribute("preUrl");
+		
+		if(StringUtils.isEmpty(preUrl)) {
+			return "redirect:/index";
+		}else {
+			return "redirect:"+preUrl;
+		}
+		
+		
 	}
 	
 	@RequestMapping("/logout")

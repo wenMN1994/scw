@@ -1,6 +1,7 @@
 package com.dragon.scw.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dragon.scw.user.bean.TMember;
+import com.dragon.scw.user.bean.TMemberAddress;
 import com.dragon.scw.user.component.SmsTemplate;
 import com.dragon.scw.user.service.TMemberService;
 import com.dragon.scw.user.vo.req.UserRegistVo;
@@ -154,5 +156,15 @@ public class UserLoginRegistController {
 		log.debug("根据会员ID查询会员信息="+vo);
 		return AppResponse.ok(vo);
 	} 
+	
+	@ApiOperation("[+]获取用户地址")
+	@GetMapping("/address")
+	public AppResponse<List<TMemberAddress>> addresses(String accessToken) {
+		String id = stringRedisTemplate.opsForValue().get(accessToken);
+		Integer memberId = Integer.parseInt(id);
+		List<TMemberAddress> address = memberService.getUserAddress(memberId);
+		return AppResponse.ok(address);
+	}
+
 
 }
