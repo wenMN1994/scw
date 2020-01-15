@@ -35,6 +35,7 @@ public class ReturnPayConfirmVo implements Serializable {
 	private String returnContent;
 	private Integer num; // 支持数量，默认数量1，不能大于signalpurchase单笔限购数量
 	private Integer price;// 支持单价
+	private BigDecimal supportTotalPrice; //支持总价
 	private Integer freight; //运费
 	private Integer signalpurchase;// 单笔限购数量
 	 

@@ -25,7 +25,7 @@ public interface TMemberServiceFeign {
 	@PostMapping("/user/login")
 	public AppResponse<UserRespVo> login(@RequestParam("loginacct") String loginacct, @RequestParam("password") String password);
 
-	@GetMapping("/user/info/address")
+	@GetMapping("/user/address/{accessToken}")
 	public AppResponse<List<TMemberAddress>> addresses(@RequestParam("accessToken")String token);
 
 }

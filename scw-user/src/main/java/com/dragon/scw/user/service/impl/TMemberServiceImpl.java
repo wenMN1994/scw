@@ -32,6 +32,7 @@ public class TMemberServiceImpl implements TMemberService {
 	@Autowired
 	TMemberMapper memberMapper;
 	
+	@Autowired
 	TMemberAddressMapper memberAddressMapper;
 	
 	@Autowired
@@ -95,7 +96,7 @@ public class TMemberServiceImpl implements TMemberService {
 	public List<TMemberAddress> getUserAddress(Integer memberId) {
 		TMemberAddressExample example = new TMemberAddressExample();
 		example.createCriteria().andMemberidEqualTo(memberId);
-		memberAddressMapper.selectByExample(example);
-		return memberAddressMapper.selectByExample(example);
+		List<TMemberAddress> addressList = memberAddressMapper.selectByExample(example);
+		return addressList;
 	}
 }

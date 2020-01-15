@@ -158,8 +158,8 @@ public class UserLoginRegistController {
 	} 
 	
 	@ApiOperation("[+]获取用户地址")
-	@GetMapping("/address")
-	public AppResponse<List<TMemberAddress>> addresses(String accessToken) {
+	@GetMapping("/address/{accessToken}")
+	public AppResponse<List<TMemberAddress>> addresses(@PathVariable("accessToken") String accessToken) {
 		String id = stringRedisTemplate.opsForValue().get(accessToken);
 		Integer memberId = Integer.parseInt(id);
 		List<TMemberAddress> address = memberService.getUserAddress(memberId);

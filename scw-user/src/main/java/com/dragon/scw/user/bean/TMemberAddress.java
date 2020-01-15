@@ -1,7 +1,14 @@
 package com.dragon.scw.user.bean;
 
-public class TMemberAddress {
-    private Integer id;
+import java.io.Serializable;
+
+public class TMemberAddress implements Serializable {
+    /**
+	 *  serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private Integer memberid;
 

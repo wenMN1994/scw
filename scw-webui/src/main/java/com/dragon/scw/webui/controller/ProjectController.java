@@ -87,6 +87,8 @@ public class ProjectController {
 		
 		ReturnPayConfirmVo vo = (ReturnPayConfirmVo) session.getAttribute("returnConfirm");
 		vo.setNum(num);
+		Integer supportTotalPrice = vo.getPrice() * num;
+		vo.setSupportTotalPrice(new BigDecimal(supportTotalPrice.toString()));
 		Integer totalPrice = vo.getPrice() * num + vo.getFreight();
 		vo.setTotalPrice(new BigDecimal(totalPrice.toString()));
 		// 每一步更新redis数据
