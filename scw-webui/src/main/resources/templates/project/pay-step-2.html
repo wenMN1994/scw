@@ -249,14 +249,14 @@ px
 										<div class="col-md-12 column" style="padding: 0 120px;">
 											<div class="radio">
 												<label> <input type="radio" name="invoice"
-													onclick="$('#invoiceInputPanel').hide()"
-													id="optionsRadios1" value="option1" checked> 无需发票
+													onclick="$('#invoiceInputPanel').hide()" value="0"
+													id="optionsRadios1" checked> 无需发票
 												</label>
 											</div>
 											<div class="radio">
 												<label> <input type="radio" name="invoice"
-													onclick="$('#invoiceInputPanel').show()"
-													id="optionsRadios2" value="option2"> 需要发票
+													onclick="$('#invoiceInputPanel').show()" value="1"
+													id="optionsRadios2"> 需要发票
 												</label>
 											</div>
 											<div
@@ -265,7 +265,6 @@ px
 												style="border-style: dashed; background-color: #eceeef; display: none">
 												<div class="panel-body">
 													<div class="col-md-12 column">
-														<form class="form-horizontal">
 															<div class="form-group">
 																<label class="col-sm-2 control-label">发票抬头（*）</label>
 																<div class="col-sm-10">
@@ -273,7 +272,6 @@ px
 																		style="width: 200px;" placeholder="个人">
 																</div>
 															</div>
-														</form>
 													</div>
 												</div>
 											</div>

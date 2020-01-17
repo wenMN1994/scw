@@ -1,4 +1,4 @@
-package com.dragon.scw.order.bean;
+package com.dragon.scw.webui.vo.resp;
 
 import java.io.Serializable;
 
@@ -145,5 +145,4 @@ public class TOrder implements Serializable {
 				+ rtncount + ", status=" + status + ", address=" + address + ", invoice=" + invoice + ", invoictitle="
 				+ invoictitle + ", remark=" + remark + "]";
 	}
-    
 }

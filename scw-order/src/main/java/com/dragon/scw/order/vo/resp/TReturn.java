@@ -1,4 +1,4 @@
-package com.dragon.scw.project.bean;
+package com.dragon.scw.order.vo.resp;
 
 import java.io.Serializable;
 
@@ -117,4 +117,13 @@ public class TReturn implements Serializable {
     public void setRtndate(Integer rtndate) {
         this.rtndate = rtndate;
     }
+
+	@Override
+	public String toString() {
+		return "TReturn [id=" + id + ", projectid=" + projectid + ", type=" + type + ", supportmoney=" + supportmoney
+				+ ", content=" + content + ", count=" + count + ", signalpurchase=" + signalpurchase + ", purchase="
+				+ purchase + ", freight=" + freight + ", invoice=" + invoice + ", rtndate=" + rtndate + "]";
+	}
+    
+    
 }
