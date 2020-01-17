@@ -1,4 +1,4 @@
-﻿package com.dragon.scw.order.config;
+﻿package com.dragon.scw.webui.config;
 
 /* *
  *类名：AlipayConfig
