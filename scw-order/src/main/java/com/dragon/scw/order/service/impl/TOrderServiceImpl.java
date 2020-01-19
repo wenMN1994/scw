@@ -1,13 +1,17 @@
 package com.dragon.scw.order.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.dragon.scw.enums.OrderStatusEnumes;
 import com.dragon.scw.order.bean.TOrder;
+import com.dragon.scw.order.bean.TOrderExample;
 import com.dragon.scw.order.mapper.TOrderMapper;
 import com.dragon.scw.order.service.TOrderService;
 import com.dragon.scw.order.service.TProjectServiceFeign;
@@ -73,6 +77,20 @@ public class TOrderServiceImpl implements TOrderService {
 		log.debug("业务层保存订单={}", order);
 		
 		return order;
+	}
+
+	@Override
+	public void updateOrderStatus(String out_trade_no) {
+		List<TOrder> order = new ArrayList<TOrder>();
+		TOrderExample example = new TOrderExample();
+		example.createCriteria().andOrdernumEqualTo(out_trade_no);
+		order = orderMapper.selectByExample(example);
+		for (TOrder updateOrder : order) {
+			BeanUtils.copyProperties(order, updateOrder);
+			updateOrder.setStatus("1");
+			orderMapper.updateByExample(updateOrder, example);
+		}
+		
 	}
 
 }

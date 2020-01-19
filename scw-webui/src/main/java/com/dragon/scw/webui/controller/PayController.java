@@ -8,8 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.dragon.scw.vo.resp.AppResponse;
+import com.dragon.scw.webui.config.AlipayConfig;
 import com.dragon.scw.webui.service.TOrderServiceFeign;
 import com.dragon.scw.webui.service.TProjectServiceFeign;
 import com.dragon.scw.webui.vo.resp.OrderFormInfoSubmitVo;
@@ -38,27 +44,23 @@ public class PayController {
 	@Autowired
 	TProjectServiceFeign projectServiceFeign;
 	
+	@ResponseBody
 	@PostMapping(value = "/pay", produces = "text/html")
 	public String pay(OrderFormInfoSubmitVo vo, HttpSession session, Model model) {
 		log.debug("提交订单-立即支付=OrderFormInfoSubmitVo={}",vo);
 		
+		//1.保存订单
 		UserRespVo loginMember = (UserRespVo) session.getAttribute("loginMember");
 		if(loginMember == null) {
 			//session.setAttribute("preUrl", "/order/pay/");
 			return "redirect:/login";
 		}
 		
-		// 1、生成订单信息
 		OrderInfoSubmitVo feignVo = new OrderInfoSubmitVo ();
 		BeanUtils.copyProperties(vo, feignVo);
 		log.debug("登录信息loginMember={}",loginMember.getAccessToken());
 		feignVo.setAccessToken(loginMember.getAccessToken());
-//		feignVo.setAddress(vo.getAddress());
-//		feignVo.setInvoice(vo.getInvoice());
-//		feignVo.setInvoictitle(vo.getInvoictitle());
-//		feignVo.setRemark(vo.getRemark());
 		
-		// 2、获取之前保存的项目id，回报id等信息
 		ReturnPayConfirmVo attribute = (ReturnPayConfirmVo) session.getAttribute("returnConfirm");
 		
 		if(attribute == null) {
@@ -75,9 +77,42 @@ public class PayController {
 		TOrder data = createOrder.getData();
 		log.debug("订单详情：{}", data);
 
-		//AppResponse<ProjectDetailVo> detailsInfo = projectServiceFeign.detailsInfo(data.getProjectid());
-
-		return "redirect:/member/minecrowdfunding";
+		//2.支付
+		String orderName = attribute.getProjectName();
+		
+		String result = payOrder(data.getOrdernum(), data.getMoney(), 
+				orderName, feignVo.getRemark()); 
+ 
+		return result;//这是一个表单，返回给浏览器，并立即提交表单，出来二维码支付页面。
 	}
 
+	private String payOrder(String out_trade_no, Integer total_amount, String subject, String body) {
+		try {
+			// 1、创建支付宝客户端
+			AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
+			AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key,
+			AlipayConfig.sign_type);
+			 
+			// 2、创建一次支付请求
+			AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+			alipayRequest.setReturnUrl(AlipayConfig.return_url);
+			alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
+
+			// 3、构造支付请求数据
+			alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\"," + "\"total_amount\":\"" + total_amount
+					+ "\"," + "\"subject\":\"" + subject + "\"," + "\"body\":\"" + body + "\","
+					+ "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+
+			// 4、请求
+			 String result = alipayClient.pageExecute(alipayRequest).getBody();
+
+			return result;// 支付跳转页的代码，一个form表单，来到扫码页
+		} catch (AlipayApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
 }

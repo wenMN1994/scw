@@ -14,4 +14,6 @@ public interface TOrderService {
 
 	TOrder createOrder(OrderInfoSubmitVo vo);
 
+	void updateOrderStatus(String out_trade_no);
+
 }
