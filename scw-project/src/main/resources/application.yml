@@ -41,7 +41,7 @@ logging:
 swagger2: 
   enable: true
   
-#请填写阿里云申请的OSS信息
+#请填写你在阿里云申请的OSS信息
 oss: 
   endpoint: 
   accessKeyId: 
