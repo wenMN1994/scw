@@ -41,8 +41,9 @@ logging:
 swagger2: 
   enable: true
   
+#请填写阿里云申请的OSS信息
 oss: 
-  endpoint: oss-cn-shenzhen.aliyuncs.com
-  accessKeyId: LTAI4FrMpi5AhoWa5Xgr2eLv
-  accessKeySecret: 4QdfOieDPi32t0XFiKaWaliWlBZSV5
-  bucket: atcrowdfunding-dragon
+  endpoint: 
+  accessKeyId: 
+  accessKeySecret: 
+  bucket: 
